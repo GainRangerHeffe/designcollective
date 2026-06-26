@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /images/favicon/
+
+Sitemap: https://designcollective.biz/sitemap.xml
