@@ -24,85 +24,78 @@ navLinks.querySelectorAll('a').forEach(link => {
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ── Contact form validation + submission ──────────────────────
+// ── Contact form ──────────────────────────────────────────────
+// SETUP: Go to formspree.io → New Form → enter info@designcollective.biz
+// Copy the form ID (e.g. xpzgkdqo) and replace YOUR_FORM_ID below.
+const FORMSPREE_ID = 'YOUR_FORM_ID';
+
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
 
 function setError(input, errorId, msg) {
   input.classList.add('invalid');
-  const errEl = document.getElementById(errorId);
-  if (errEl) errEl.textContent = msg;
+  const el = document.getElementById(errorId);
+  if (el) el.textContent = msg;
 }
 function clearError(input, errorId) {
   input.classList.remove('invalid');
-  const errEl = document.getElementById(errorId);
-  if (errEl) errEl.textContent = '';
+  const el = document.getElementById(errorId);
+  if (el) el.textContent = '';
 }
 
-// Clear errors on input
 form.querySelectorAll('input, textarea').forEach(field => {
-  field.addEventListener('input', () => {
-    const errId = 'err-' + field.id;
-    clearError(field, errId);
-  });
+  field.addEventListener('input', () => clearError(field, 'err-' + field.id));
 });
 
 form.addEventListener('submit', e => {
   e.preventDefault();
   success.classList.remove('visible');
 
+  const firstName = document.getElementById('first-name');
+  const lastName  = document.getElementById('last-name');
+  const email     = document.getElementById('email');
   let valid = true;
 
-  const firstName = document.getElementById('first-name');
-  const lastName = document.getElementById('last-name');
-  const email = document.getElementById('email');
-
   clearError(firstName, 'err-first-name');
-  clearError(lastName, 'err-last-name');
-  clearError(email, 'err-email');
+  clearError(lastName,  'err-last-name');
+  clearError(email,     'err-email');
 
   if (!firstName.value.trim()) {
-    setError(firstName, 'err-first-name', 'First name is required.');
-    valid = false;
+    setError(firstName, 'err-first-name', 'First name is required.'); valid = false;
   }
   if (!lastName.value.trim()) {
-    setError(lastName, 'err-last-name', 'Last name is required.');
-    valid = false;
+    setError(lastName, 'err-last-name', 'Last name is required.'); valid = false;
   }
   if (!email.value.trim()) {
-    setError(email, 'err-email', 'Email address is required.');
-    valid = false;
+    setError(email, 'err-email', 'Email address is required.'); valid = false;
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-    setError(email, 'err-email', 'Please enter a valid email address.');
-    valid = false;
+    setError(email, 'err-email', 'Please enter a valid email address.'); valid = false;
   }
 
-  if (!valid) {
-    form.querySelector('.invalid').focus();
-    return;
-  }
+  if (!valid) { form.querySelector('.invalid').focus(); return; }
 
   const btn = form.querySelector('button[type="submit"]');
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // ── Replace this block with your Formspree/EmailJS fetch call ──
-  // Example Formspree:
-  // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-  //   method: 'POST',
-  //   headers: { 'Accept': 'application/json' },
-  //   body: new FormData(form)
-  // }).then(r => {
-  //   if (r.ok) { success.classList.add('visible'); form.reset(); }
-  //   else { btn.textContent = 'Send Message'; }
-  //   btn.disabled = false;
-  // });
-
-  // Demo placeholder (remove when wired to real endpoint):
-  setTimeout(() => {
-    success.classList.add('visible');
-    form.reset();
+  fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(form)
+  })
+  .then(r => {
+    if (r.ok) {
+      success.classList.add('visible');
+      form.reset();
+    } else {
+      alert('Something went wrong. Please email us directly at info@designcollective.biz');
+    }
+  })
+  .catch(() => {
+    alert('Could not send. Please email info@designcollective.biz directly.');
+  })
+  .finally(() => {
     btn.textContent = 'Send Message';
     btn.disabled = false;
-  }, 900);
+  });
 });
