@@ -935,8 +935,8 @@ textarea:focus-visible {
   .hero-sub { max-width: 100%; }
   .hero-actions { align-items: center; }
 
-  .services-grid { grid-template-columns: 1fr 1fr; }
-  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; gap: 24px; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .about-container,
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-img-wrap { aspect-ratio: 16/9; }
@@ -989,13 +989,13 @@ textarea:focus-visible {
   .value-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .value-item { font-size: 0.68rem; }
 
-  .services-grid { grid-template-columns: 1fr; gap: 16px; }
-  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; gap: 20px; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .form-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .portfolio-grid { grid-template-columns: 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; gap: 10px; }
   .container { padding: 0 20px; }
   .value-bar-grid { grid-template-columns: 1fr 1fr; }
   #lightbox-img { max-width: 95vw; max-height: 80vh; }
