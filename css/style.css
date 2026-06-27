@@ -941,11 +941,22 @@ textarea:focus-visible {
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-img-wrap { aspect-ratio: 16/9; }
   .process-grid { grid-template-columns: 1fr; gap: 20px; }
-  /* Reduce translateY so stacked cards don't overlap while waiting to animate in */
+  /* Grid items: fade-in only on mobile — no translateY to avoid overlap/gaps */
+  .service-card { --delay: 0s; }
+  .service-card.reveal.from-left,
+  .service-card.reveal.from-right,
+  .service-card.reveal.from-bottom { transform: translateY(0); }
+
+  .portfolio-item { --delay: 0s; }
+  .portfolio-item.reveal.from-left,
+  .portfolio-item.reveal.from-right,
+  .portfolio-item.reveal.from-bottom { transform: translateY(0); }
+
   .process-step { --delay: 0s; }
   .process-step.reveal.from-left,
   .process-step.reveal.from-right,
-  .process-step.reveal.from-bottom { transform: translateY(16px); }
+  .process-step.reveal.from-bottom { transform: translateY(0); }
+
   .map-wrap { margin-top: 48px; }
   .map-wrap iframe { height: 280px; }
 }
