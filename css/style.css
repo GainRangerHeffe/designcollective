@@ -385,7 +385,21 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 
-/* ── Subtle gold dot pattern on light sections ── */
+/* ── Gold inner-glow below section border-top ── */
+.services::after,
+.about::after,
+.portfolio::after,
+.contact-section::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(196,150,42,0.07) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Gold dot pattern on light sections ── */
 .services,
 .about,
 .portfolio,
@@ -399,7 +413,7 @@ textarea:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(196,150,42,0.11) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(196,150,42,0.30) 1.5px, transparent 1.5px);
   background-size: 28px 28px;
   pointer-events: none;
 }
@@ -418,6 +432,7 @@ textarea:focus-visible {
   padding: var(--section-pad) 0;
   background: var(--light);
   text-align: center;
+  border-top: 3px solid rgba(196,150,42,0.35);
 }
 .services-grid {
   display: grid;
@@ -470,6 +485,7 @@ textarea:focus-visible {
   padding: var(--section-pad) 0;
   background: var(--white);
   text-align: center;
+  border-top: 3px solid rgba(196,150,42,0.35);
 }
 .portfolio-grid {
   display: grid;
@@ -516,6 +532,7 @@ textarea:focus-visible {
 .about {
   padding: var(--section-pad) 0;
   background: var(--light);
+  border-top: 3px solid rgba(196,150,42,0.35);
 }
 .about-container {
   display: grid;
@@ -596,6 +613,7 @@ textarea:focus-visible {
 .contact-section {
   padding: var(--section-pad) 0;
   background: var(--white);
+  border-top: 3px solid rgba(196,150,42,0.35);
 }
 .contact-section .section-title { margin-bottom: 56px; }
 .contact-grid {
