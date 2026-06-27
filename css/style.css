@@ -941,6 +941,11 @@ textarea:focus-visible {
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-img-wrap { aspect-ratio: 16/9; }
   .process-grid { grid-template-columns: 1fr; gap: 20px; }
+  /* Reduce translateY so stacked cards don't overlap while waiting to animate in */
+  .process-step { --delay: 0s; }
+  .process-step.reveal.from-left,
+  .process-step.reveal.from-right,
+  .process-step.reveal.from-bottom { transform: translateY(16px); }
   .map-wrap { margin-top: 48px; }
   .map-wrap iframe { height: 280px; }
 }
