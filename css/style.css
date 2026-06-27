@@ -186,7 +186,6 @@ textarea:focus-visible {
 .logo-img {
   height: 68px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 
 .nav-links {
