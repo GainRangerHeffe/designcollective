@@ -138,6 +138,28 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
 });
 
+// ── Scroll reveal ──────────────────────────────────────────
+(function () {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+
+  if (prefersReduced) {
+    els.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+  els.forEach(el => observer.observe(el));
+})();
+
 // Swipe down to close on mobile
 let touchStartY = 0;
 lightbox.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
