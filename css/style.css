@@ -68,9 +68,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+.section-label::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1.5px;
+  background: var(--gold);
+  margin: 8px auto 0;
 }
 .section-label.light { color: var(--gold-light); }
+.section-label.light::after { background: var(--gold-light); }
+.about .section-label::after { margin-left: 0; margin-right: auto; }
 
 .section-title {
   font-family: var(--font-serif);
@@ -152,7 +162,7 @@ textarea:focus-visible {
   align-items: center;
 }
 .logo-img {
-  height: 44px;
+  height: 68px;
   width: auto;
   filter: brightness(0) invert(1);
 }
@@ -326,6 +336,32 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 
+/* ── Subtle gold dot pattern on light sections ── */
+.services,
+.about,
+.portfolio,
+.contact-section {
+  position: relative;
+}
+.services::before,
+.about::before,
+.portfolio::before,
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(196,150,42,0.11) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.services .container,
+.about .container,
+.portfolio .container,
+.contact-section .container {
+  position: relative;
+  z-index: 1;
+}
+
 /* ============================================
    SERVICES
    ============================================ */
@@ -395,7 +431,7 @@ textarea:focus-visible {
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  cursor: pointer;
+  cursor: zoom-in;
 }
 .portfolio-item img {
   width: 100%;
@@ -665,6 +701,113 @@ textarea:focus-visible {
 }
 .footer-credit a:hover { color: var(--gold-light); }
 
+/* Footer contact address */
+.footer-contact {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.footer-contact a,
+.footer-contact span {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  transition: color var(--transition);
+}
+.footer-contact a:hover { color: var(--gold); }
+
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(196,150,42,0.4);
+  transition: background var(--transition), border-color var(--transition);
+}
+.social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: rgba(255,255,255,0.6);
+  transition: fill var(--transition);
+}
+.social-icon:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.social-icon:hover svg { fill: var(--white); }
+
+/* Inline social link (contact section) */
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--navy);
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: color var(--transition);
+}
+.contact-social-link:hover { color: var(--gold); }
+.contact-social-svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 14, 30, 0.93);
+  z-index: 8000;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.lightbox.open { display: flex; }
+#lightbox-img {
+  max-width: 90vw;
+  max-height: 86vh;
+  object-fit: contain;
+  box-shadow: 0 8px 80px rgba(0,0,0,0.7);
+  cursor: default;
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
+  z-index: 8001;
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+.lightbox-close:hover {
+  background: var(--gold);
+  color: var(--white);
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -732,4 +875,11 @@ textarea:focus-visible {
   .portfolio-grid { grid-template-columns: 1fr; }
   .container { padding: 0 20px; }
   .value-bar-grid { grid-template-columns: 1fr 1fr; }
+  #lightbox-img { max-width: 95vw; max-height: 80vh; }
+  .lightbox-close { top: 12px; right: 12px; width: 44px; height: 44px; font-size: 1.6rem; }
+}
+
+@media (max-width: 380px) {
+  .value-bar-grid { grid-template-columns: 1fr; }
+  .footer-links { gap: 20px; }
 }

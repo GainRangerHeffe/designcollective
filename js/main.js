@@ -99,3 +99,48 @@ form.addEventListener('submit', e => {
     btn.disabled = false;
   });
 });
+
+// ── Portfolio lightbox ─────────────────────────────────────
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.getElementById('lightbox-close');
+
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  item.setAttribute('role', 'button');
+  item.setAttribute('tabindex', '0');
+  const img = item.querySelector('img');
+  item.setAttribute('aria-label', 'View full size: ' + (img.alt || 'Portfolio image'));
+
+  function openLightbox() {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  item.addEventListener('click', openLightbox);
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(); }
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+});
+
+// Swipe down to close on mobile
+let touchStartY = 0;
+lightbox.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+lightbox.addEventListener('touchend', e => {
+  if (Math.abs(e.changedTouches[0].screenY - touchStartY) > 80) closeLightbox();
+}, { passive: true });
