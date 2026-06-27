@@ -561,10 +561,25 @@ textarea:focus-visible {
    PROCESS
    ============================================ */
 .process {
+  position: relative;
   padding: var(--section-pad) 0;
-  background: var(--navy);
   text-align: center;
 }
+.process-bg {
+  position: absolute;
+  inset: 0;
+}
+.process-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.process-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 30, 56, 0.88);
+}
+.process .container { position: relative; z-index: 2; }
 .process-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
