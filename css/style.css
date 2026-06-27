@@ -748,6 +748,20 @@ textarea:focus-visible {
   height: 340px;
   border: 0;
 }
+.map-directions-link {
+  display: block;
+  text-align: right;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--light);
+  border-top: 1px solid #e0e8f0;
+  transition: color var(--transition);
+}
+.map-directions-link:hover { color: var(--navy); }
 
 /* ============================================
    FOOTER
