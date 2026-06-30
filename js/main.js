@@ -25,7 +25,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ── Contact form ──────────────────────────────────────────────
-emailjs.init('X5PGekQjcD2fjmxV7');
+emailjs.init({ publicKey: 'X5PGekQjcD2fjmxV7' });
 
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
@@ -87,7 +87,8 @@ form.addEventListener('submit', e => {
     success.classList.add('visible');
     form.reset();
   })
-  .catch(() => {
+  .catch((err) => {
+    console.error('EmailJS error:', JSON.stringify(err));
     alert('Could not send. Please email info@designcollective.biz directly.');
   })
   .finally(() => {
