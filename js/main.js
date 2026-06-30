@@ -83,7 +83,7 @@ form.addEventListener('submit', e => {
   })
   .then(() => {
     form.style.display = 'none';
-    formSent.classList.add('visible');
+    formSent.style.display = 'flex';
   })
   .catch((err) => {
     console.error('EmailJS error:', JSON.stringify(err));
