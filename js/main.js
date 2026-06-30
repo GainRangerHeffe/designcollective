@@ -25,9 +25,6 @@ navLinks.querySelectorAll('a').forEach(link => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ── Contact form ──────────────────────────────────────────────
-// SETUP: Go to formspree.io → New Form → enter info@designcollective.biz
-// Copy the form ID (e.g. xpzgkdqo) and replace YOUR_FORM_ID below.
-const FORMSPREE_ID = 'YOUR_FORM_ID';
 
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
@@ -78,24 +75,22 @@ form.addEventListener('submit', e => {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: new FormData(form)
+  emailjs.send('service_m4n61uk', 'template_28d8ybt', {
+    first_name: firstName.value.trim(),
+    last_name:  lastName.value.trim(),
+    reply_to:   email.value.trim(),
+    phone:      document.getElementById('phone').value.trim(),
+    message:    document.getElementById('message').value.trim()
   })
-  .then(r => {
-    if (r.ok) {
-      success.classList.add('visible');
-      form.reset();
-    } else {
-      alert('Something went wrong. Please email us directly at info@designcollective.biz');
-    }
+  .then(() => {
+    success.classList.add('visible');
+    form.reset();
   })
   .catch(() => {
     alert('Could not send. Please email info@designcollective.biz directly.');
   })
   .finally(() => {
-    btn.textContent = 'Send Message';
+    btn.textContent = 'Schedule Free Consultation';
     btn.disabled = false;
   });
 });
