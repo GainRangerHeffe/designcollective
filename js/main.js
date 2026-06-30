@@ -25,6 +25,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ── Contact form ──────────────────────────────────────────────
+emailjs.init('X5PGekQjcD2fjmxV7');
 
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
