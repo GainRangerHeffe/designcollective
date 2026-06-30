@@ -28,7 +28,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 emailjs.init({ publicKey: 'X5PGekQjcD2fjmxV7' });
 
 const form = document.getElementById('contact-form');
-const success = document.getElementById('form-success');
+const formSent = document.getElementById('form-sent');
 
 function setError(input, errorId, msg) {
   input.classList.add('invalid');
@@ -47,8 +47,6 @@ form.querySelectorAll('input, textarea').forEach(field => {
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  success.classList.remove('visible');
-
   const firstName = document.getElementById('first-name');
   const lastName  = document.getElementById('last-name');
   const email     = document.getElementById('email');
@@ -84,8 +82,8 @@ form.addEventListener('submit', e => {
     message:    document.getElementById('message').value.trim()
   })
   .then(() => {
-    success.classList.add('visible');
-    form.reset();
+    form.style.display = 'none';
+    formSent.classList.add('visible');
   })
   .catch((err) => {
     console.error('EmailJS error:', JSON.stringify(err));

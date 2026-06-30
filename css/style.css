@@ -719,15 +719,49 @@ textarea:focus-visible {
   color: var(--text-muted);
   margin-top: -8px;
 }
-.form-success {
+.form-sent {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 56px 32px;
+  border: 1px solid rgba(196,150,42,0.3);
+  background: var(--light);
   text-align: center;
-  color: var(--gold);
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  padding-top: 4px;
+  min-height: 320px;
 }
-.form-success.visible { display: block; }
+.form-sent.visible { display: flex; }
+.form-sent-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-sent-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.form-sent h3 {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 300;
+  color: var(--navy);
+}
+.form-sent p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+.form-sent a { color: var(--gold); }
 .form-trust {
   text-align: center;
   font-size: 0.75rem;
